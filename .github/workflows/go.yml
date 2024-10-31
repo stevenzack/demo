@@ -39,10 +39,7 @@ jobs:
         gcc --version
         go install fyne.io/fyne/v2/cmd/fyne@latest
         fyne package -os windows -icon logo.png
-    - name: Create a Release
-      uses: elgohr/Github-Release-Action@v5
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        title: MyReleaseMessage
-        tag: v1.0.0
+    - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Fyne App.exe
