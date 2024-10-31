@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-
+      # dir D:\a\demo\demo
     - shell: cmd
       run: dir
     
@@ -31,7 +31,12 @@ jobs:
     - shell: msys2 {0}
       run: |
         uname -a
-        
-
+        pwd
+        cd /d/a/demo/demo
+        export GOROOT=/mingw64/lib/go
+        export GOPATH=/opt/go
+        export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+        gcc --version
+        go build .
     
         
