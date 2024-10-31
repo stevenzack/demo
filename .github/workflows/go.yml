@@ -37,6 +37,12 @@ jobs:
         export GOPATH=/opt/go
         export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
         gcc --version
-        go build .
-    
-        
+        go install fyne.io/fyne/v2/cmd/fyne@latest
+        fyne package -os windows -icon logo.png
+    - name: Create a Release
+      uses: elgohr/Github-Release-Action@v5
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        title: MyReleaseMessage
+        tag: v1.0.0

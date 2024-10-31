@@ -1,0 +1,6 @@
+[Details]
+  Icon = "logo.png"
+  Name = "Fyne Hello"
+  ID = "io.fyne.hello"
+  Version = "2.4.0"
+  Build = 3
