@@ -18,11 +18,29 @@ jobs:
     - shell: cmd
       run: dir
     
-    - shell: cmd
-      run: echo asd>a.txt
+    - name: Setup MSYS2
+      # You may pin to the exact commit or the version.
+      # uses: msys2/setup-msys2@ddf331adaebd714795f1042345e6ca57bd66cea8
+      uses: msys2/setup-msys2@v2
+      with:
+        # After installation and/or update, install additional packages through pacman
+        install:  git mingw-w64-x86_64-toolchain mingw-w64-x86_64-go
+        # go would be installed at /mingw64/lib/go
+
+    - shell: msys2 {0}
+      run: |
+        uname -a
+        pwd
+        cd /d/a/demo/demo
+        export GOROOT=/mingw64/lib/go
+        export GOPATH=/opt/go
+        export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+        gcc --version
+        go install fyne.io/fyne/v2/cmd/fyne@latest
+        fyne package -os windows -icon logo.png
     - name: Release
       uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/')
       with:
         token: ${{ secrets.GH_TOKEN }}
-        files: a.txt
+        files: Fyne Hello.exe
